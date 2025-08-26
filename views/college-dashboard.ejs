@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Dashboard - Gradious</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+    <!-- <%- include('partials/header') %> -->
+    <header>
+        <div class="navbar">
+            <img src="/images/logo.png" alt="Gradious Logo" class="logo" />
+            <div class="university-name">Gradious Affiliation Portal</div>
+            <nav>
+                <p>Welcome, <%= college.name %>
+                </p>
+            </nav>
+        </div>
+    </header>
+
+    <div class="dashboard-wrapper">
+        <aside class="sidebar">
+            <ul class="sidebar-nav">
+                <li>
+                    <a href="#college-details" class="active">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span class="sidebar-text">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#new-application">
+                        <i class="fas fa-file-alt"></i>
+                        <span class="sidebar-text">New Application</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#application-history">
+                        <i class="fas fa-history"></i>
+                        <span class="sidebar-text">Application History</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="sidebar-text">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+
+        <main class="main-content dashboard-main">
+            <div class="dashboard-container">
+
+                <section class="dashboard-section" id="college-details">
+                    <h2>College Details</h2>
+                    <form action="/college/dashboard/update-details" method="POST" class="details-form">
+                        <div class="details-grid">
+                            <div>
+                                <label>College Name</label>
+                                <p>
+                                    <%= college.name %>
+                                </p>
+                            </div>
+                            <div>
+                                <label for="address">Address</label>
+                                <input type="text" id="address" name="address" value="<%= collegeDetails.address %>">
+                            </div>
+                            <div>
+                                <label for="contactPerson">Contact Person</label>
+                                <input type="text" id="contactPerson" name="contactPerson"
+                                    value="<%= collegeDetails.contactPerson %>">
+                            </div>
+                            <div>
+                                <label for="contactNumber">Contact Number</label>
+                                <input type="text" id="contactNumber" name="contactNumber"
+                                    value="<%= collegeDetails.contactNumber %>">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-primary">Update Details</button>
+                    </form>
+                </section>
+
+                <section class="dashboard-section" id="new-application">
+                    <h2>Submit Course Affiliation Request</h2>
+                    <form action="/college/application/submit" method="POST" enctype="multipart/form-data"
+                        class="application-form">
+                        <!-- <input type="text" name="courseTitle" placeholder="Course Title" required> -->
+                        <select name="courseTitle" id="courseTitle" required>
+                            <option value="">Select Course</option>
+                            <option value="ECE">ECE</option>
+                            <option value="CSE">CSE</option>
+                            <option value="MECH">MECH</option>
+                            <option value="IT">IT</option>
+                            <option value="EEE">EEE</option>
+                            <option value="AIDS">AIDS</option>
+                            <option value="AIML">AIML</option>
+                            <option value="CSBS">CSBS</option>
+                        </select>
+                        <!-- <input type="text" name="courseDuration" placeholder="Course Duration" required> -->
+                        <select name="courseDuration" required>
+                            <option value="">Select duration</option>
+                            <option value="1 Year">1 Year</option>
+                            <option value="2 Years">2 Years</option>
+                            <option value="3 Years">3 Years</option>
+                            <option value="4 Years">4 Years</option>
+                        </select>
+                        <input type="number" name="intakeCapacity" placeholder="Intake Capacity" required>
+                        <input type="number" name="facultyCount" placeholder="Number of Faculty" required>
+                        <textarea name="infrastructureDetails" placeholder="Describe facilities" rows="4"
+                            required></textarea>
+                        <input type="number" name="courseFee" placeholder="Course Fee(for choosen duration)" required>
+                        <select name="affiliationType">
+                            <option value="">Select Type</option>
+                            <option value="New">New</option>
+                            <option value="Renewal">Renewal</option>
+                        </select>
+                        <label>Supporting Documents (Max 5 files)</label>
+                        <input type="file" name="supportingDocuments" multiple>
+                        <button type="submit" class="btn-primary">Submit Request</button>
+                    </form>
+                </section>
+
+                <section class="dashboard-section" id="application-history">
+                    <h2>Your Applications</h2>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Course Name</th>
+                                    <th>Affiliation Type</th>
+                                    <th>Date of Submission</th>
+                                    <th>Status</th>
+                                    <th>View Appplication</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% applications.forEach(app=> { %>
+                                    <tr class="application-row" data-id="<%= app._id %>">
+                                        <td>
+                                            <%= app.courseTitle %>
+                                        </td>
+                                        <td>
+                                            <%= app.affiliationType %>
+                                        </td>
+                                        <td>
+                                            <%= new Date(app.createdAt).toLocaleDateString() %>
+                                        </td>
+                                        <td><span class="status-badge status-<%= app.status.toLowerCase() %>">
+                                                <%= app.status %>
+                                            </span></td>
+                                        <td>
+                                            <button class="view-btn" data-id="<%= app._id %>">View</button>
+                                        </td>
+
+                                    </tr>
+                                    <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Application Details Modal -->
+                    <div id="detailsModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close-button">&times;</span>
+                            <div id="modalBody"></div>
+                        </div>
+                    </div>
+
+                </section>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- <%- include('partials/footer') %> -->
+    <footer>
+        <p>&copy; <%= new Date().getFullYear() %> University Affiliation Management Portal. All rights reserved.</p>
+    </footer>
+
+    <script src="/js/main.js"></script>
+</body>
+
+</html>

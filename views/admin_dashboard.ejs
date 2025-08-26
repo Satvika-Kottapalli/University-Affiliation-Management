@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+    <link rel="stylesheet" href="/css/admin.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body class="dashboard-body">
+    <header>
+        <div class="navbar">
+            <img src="/images/logo.png" alt="Gradious Logo" class="logo" />
+            <div class="university-name">Gradious Affiliation Portal</div>
+            <nav>
+                <p>Welcome, Admin</p>
+            </nav>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- views/partials/admin_sidebar.ejs -->
+        <aside class="sidebar">
+            <ul class="sidebar-nav">
+                <li>
+                    <a href="#admin-dashboard-overview" class="active">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span class="sidebar-text">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#manage-applications">
+                        <i class="fas fa-tasks"></i>
+                        <span class="sidebar-text">Manage Applications</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#affiliated-colleges">
+                        <i class="fas fa-university"></i>
+                        <span class="sidebar-text">Affiliated Colleges</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#appraisal-officers">
+                        <i class="fas fa-users"></i>
+                        <span class="sidebar-text">Appraisal Officers</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="sidebar-text">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+
+        <main class="dashboard-content">
+            <!-- Admin Overview Section -->
+            <section class="dashboard-section" id="admin-dashboard-overview">
+                <h2>Admin Dashboard</h2>
+                <div class="kpi-container">
+                    <div class="kpi-card">
+                        <span class="kpi-value">21</span>
+                        <span class="kpi-label">Total Applications</span>
+                    </div>
+                    <div class="kpi-card">
+                        <span class="kpi-value">0</span>
+                        <span class="kpi-label">Pending Review</span>
+                    </div>
+                    <div class="kpi-card">
+                        <span class="kpi-value">1</span>
+                        <span class="kpi-label">Approved</span>
+                    </div>
+                    <div class="kpi-card">
+                        <span class="kpi-value">0</span>
+                        <span class="kpi-label">Rejected</span>
+                    </div>
+                </div>
+
+                <!-- Verified Applications Table -->
+                <div class="card" style="margin-top: 30px;">
+                    <div class="card-header">
+                        <h3>Verified Applications</h3>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>College</th>
+                                <th>Course</th>
+                                <th>Status by Appraiser</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% applications.filter(a=> a.status === 'Verified').forEach(app => { %>
+                                <tr>
+                                    <td>
+                                        <%= app.id.slice(-5) %>
+                                    </td>
+                                    <td>
+                                        <%= app.collegeId.name %>
+                                    </td>
+                                    <td>
+                                        <%= app.courseTitle %>
+                                    </td>
+                                    <td><span class="status verified">Verified</span></td>
+                                    <td>
+                                        <%= new Date(app.updatedAt).toLocaleDateString() %>
+                                    </td>
+                                    <td><button class="btn-view view-details-btn" data-id="<%= app._id %>">View</button>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Manage Applications Section -->
+            <section class="dashboard-section" id="manage-applications">
+                <h2>Manage Applications</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Course</th>
+                            <th>Type</th>
+                            <th>Submitted</th>
+                            <th>Status</th>
+                            <th>Appraiser</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% applications.filter(a=> a.status !== 'Verified').forEach(app => { %>
+                            <tr>
+                                <td>
+                                    <%= app.collegeId.name.slice(0,4) %>
+                                </td>
+                                <td>
+                                    <%= app.courseTitle %>
+                                </td>
+                                <td>
+                                    <%= app.affiliationType %>
+                                </td>
+                                <td>
+                                    <%= new Date(app.createdAt).toLocaleDateString() %>
+                                </td>
+                                <td><span class="status <%= app.status.toLowerCase() %>">
+                                        <%= app.status %>
+                                    </span></td>
+                                <td>
+                                    <%= app.appraiserId ? app.appraiserId.name : 'Not Assigned' %>
+                                </td>
+                                <td>
+                                    <form action="/admin/assign-appraiser/<%= app._id %>" method="POST"
+                                        style="display:flex; gap:5px;">
+                                        <select name="appraiserId">
+                                            <option>Select Appraiser</option>
+                                            <% appraisers.forEach(ap=> { %>
+                                                <option value="<%= ap._id %>" <%=app.appraiserId &&
+                                                    app.appraiserId.equals(ap._id) ? 'selected' : '' %>>
+                                                    <%= ap.name %>
+                                                </option>
+                                                <% }) %>
+                                        </select>
+                                        <button type="submit" class="btn-assign">Assign</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Affiliated Colleges Section -->
+            <section class="dashboard-section" id="affiliated-colleges">
+                <h2>Affiliated Colleges</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Registered On</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% colleges.forEach(c=> { %>
+                            <tr>
+                                <td>
+                                    <%= c.name %>
+                                </td>
+                                <td>
+                                    <%= c.email %>
+                                </td>
+                                <td>
+                                    <%= new Date(c.createdAt).toLocaleDateString() %>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </section>
+
+
+            <!-- Appraisal Officers Section -->
+            <section class="dashboard-section" id="appraisal-officers">
+                <h2>Appraisal Officers</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Assigned Applications</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% appraisers.forEach(a=> { %>
+                            <tr>
+                                <td>
+                                    <%= a.name %>
+                                </td>
+                                <td>
+                                    <%= a.email %>
+                                </td>
+                                <td>
+                                    <%= applications.filter(app=> app.appraiserId &&
+                                        app.appraiserId.equals(a._id)).length %>
+                                </td>
+                            </tr>
+                            <% }) %>
+                    </tbody>
+                </table>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Application Details Modal -->
+    <div id="detailsModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Application Details</h2>
+            <div id="modalBody">
+                <!-- Content will be injected by JavaScript -->
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-success">Approve</button>
+                <button class="btn btn-danger">Reject</button>
+                <button class="btn btn-warning">Resubmission</button>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; <%= new Date().getFullYear() %> University Affiliation Management Portal. All rights reserved.</p>
+    </footer>
+</body>
+<script src="/js/admin.js"></script>
+
+</html>

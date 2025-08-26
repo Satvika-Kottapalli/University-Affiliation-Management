@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gradious - University Affiliation Management</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <!-- <%- include('partials/header') %> -->
+  <header>
+    <div class="navbar">
+      <img src="/images/logo.png" alt="Gradious Logo" class="logo" />
+      <div class="university-name">Gradious Affiliation Portal</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="#features-section">Features</a>
+        <a href="#contact-section">Contact</a>
+        <a href="#login-roles-section" class="nav login-btn">Login</a>
+      </nav>
+    </div>
+  </header>
+  <main class="main-content">
+    <!-- Welcome Section -->
+    <section class="welcome-section">
+      <h1>Welcome to the Gradious Affiliation Portal</h1>
+      <p class="description">
+        Manage college course affiliation applications seamlessly across academic years.<br />
+        Allow colleges to apply, appraisers to verify and audit, and admins to approve affiliation.
+      </p>
+      <!-- <img src="/images/download.png" alt="uniimage" width="200px" height="200px"> -->
+    </section>
+
+    <!-- Login Roles Section -->
+    <section class="login-roles-section" id="login-roles-section">
+      <h2 class="select-role-heading">Select Role</h2>
+
+      <div class="role-cards-wrapper">
+        <div class="role-card">
+          <img src="/images/admin.png" alt="Admin" class="role-image" />
+          <a href="/login/admin" class="login-btn">Admin</a>
+        </div>
+        <div class="role-card">
+          <img src="/images/appraiser.png" alt="Appraiser" class="role-image" />
+          <a href="/login/appraiser" class="login-btn">Appraiser</a>
+        </div>
+        <div class="role-card">
+          <img src="/images/college.png" alt="College" class="role-image" />
+          <a href="/login/college" class="login-btn">College</a>
+        </div>
+      </div> <!-- role-cards-wrapper end -->
+    </section>
+
+
+    <section class="features-section" id="features-section">
+      <h2>Features</h2>
+      <div class="features-row">
+        <div class="feature-card">
+          <h3>Course Affiliation Application</h3>
+          <p>Colleges can apply for new or repeated courses every academic year.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Role-Based Access</h3>
+          <p>Secure logins for Admin, Appraiser, and College with distinct functionalities.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Document Verification & Audit</h3>
+          <p>Appraisers verify documents & conduct physical audits for quality assurance.</p>
+        </div>
+        <div class="feature-card">
+          <h3>Feedback & Approval</h3>
+          <p>Appraisers provide feedback and Admin reviews before granting permissions.</p>
+        </div>
+        <!-- <div class="feature-card">
+          <h3>Fee Payment & Confirmation</h3>
+          <p>Colleges pay fees post-approval to confirm course affiliations officially.</p>
+        </div> -->
+      </div>
+    </section>
+    <section class="contact-section" id="contact-section">
+      <div class="contact-card">
+        <h2>Contact Us</h2>
+        <p>Email: <a href="mailto:support@gradious.com">support@gradious.com</a></p>
+        <p>Phone: <a href="tel:+911234567890">+91 12345 67890</a></p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- <%- include('partials/footer') %> -->
+  <footer>
+    <p>&copy; <%= new Date().getFullYear() %> University Affiliation Management Portal. All rights reserved.</p>
+  </footer>
+
+</body>
+
+</html>
