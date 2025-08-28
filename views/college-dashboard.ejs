@@ -7,11 +7,11 @@
     <title>College Dashboard - Gradious</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/college.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
-<body>
-    <!-- <%- include('partials/header') %> -->
+<body class="dashboard-body">
     <header>
         <div class="navbar">
             <img src="/images/logo.png" alt="Gradious Logo" class="logo" />
@@ -102,7 +102,6 @@
                             <option value="AIML">AIML</option>
                             <option value="CSBS">CSBS</option>
                         </select>
-                        <!-- <input type="text" name="courseDuration" placeholder="Course Duration" required> -->
                         <select name="courseDuration" required>
                             <option value="">Select duration</option>
                             <option value="1 Year">1 Year</option>
@@ -112,14 +111,14 @@
                         </select>
                         <input type="number" name="intakeCapacity" placeholder="Intake Capacity" required>
                         <input type="number" name="facultyCount" placeholder="Number of Faculty" required>
-                        <textarea name="infrastructureDetails" placeholder="Describe facilities" rows="4"
-                            required></textarea>
                         <input type="number" name="courseFee" placeholder="Course Fee(for choosen duration)" required>
                         <select name="affiliationType">
                             <option value="">Select Type</option>
                             <option value="New">New</option>
                             <option value="Renewal">Renewal</option>
                         </select>
+                        <textarea name="infrastructureDetails" placeholder="Describe facilities" rows="4"
+                            required></textarea>
                         <label>Supporting Documents (Max 5 files)</label>
                         <input type="file" name="supportingDocuments" multiple>
                         <button type="submit" class="btn-primary">Submit Request</button>

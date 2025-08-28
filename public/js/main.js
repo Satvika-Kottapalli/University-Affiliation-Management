@@ -30,10 +30,11 @@ document.addEventListener('DOMContentLoaded', () => {
               <p><strong>Status:</strong> ${app.status}</p>
               <p><strong>Appraisal Status:</strong> ${app.appraisalStatus}</p>
               <p><strong>Documents:</strong><br>
-             ${app.supportingDocuments.map(doc =>
-             `<a href="${doc.replace('public', '')}" target="_blank">View File</a>`
-             ).join('<br>')}
-            </p>
+                ${app.supportingDocuments.map(doc => {
+                const fileName = doc.split('/').pop().split('-').slice(1).join('-'); ; // extract filename
+                return `<a href="${doc.replace('public', '')}" target="_blank">${fileName}</a>`;
+                }).join('<br>')}
+              </p>
           `;
         }
 

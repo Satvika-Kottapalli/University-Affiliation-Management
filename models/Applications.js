@@ -45,7 +45,16 @@ const ApplicationSchema = new mongoose.Schema({
   appraiserId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
-  } // link to appraiser
+  },
+  verification: {
+    siteVisitDate: Date,
+    recommendation: String,
+    notes: String,
+    priority: String,
+    supportingDocuments: [String],
+    verifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
+}
+
 }, { timestamps: true });
 
 module.exports = mongoose.model('Application', ApplicationSchema);

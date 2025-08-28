@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
-const Application = require('../models/Applications'); // Assuming you have this model
+const Application = require('../models/Applications');
+const CollegeDetails = require('../models/CollegeDetails');
 
 // Middleware to ensure the user is an authenticated admin
 const ensureAdmin = (req, res, next) => {
@@ -15,21 +16,44 @@ const ensureAdmin = (req, res, next) => {
 router.get('/dashboard', ensureAdmin, async (req, res) => {
     try {
         const applications = await Application.find({})
-            .populate('collegeId') // Populates college details
-            .populate('appraiserId'); // Populates appraiser details
+            .populate('collegeId')
+            .populate('appraiserId');
         const appraisers = await User.find({ role: 'appraiser' });
         const colleges = await User.find({ role: 'college' });
+
+        const collegeDetails = await CollegeDetails.find({});
+
+        // create a map { collegeId: details }
+        const detailsMap = {};
+        collegeDetails.forEach(d => {
+            detailsMap[d.collegeId.toString()] = d;
+        });
+
+        // KPI counts
+        const totalApplications = applications.length;
+        const pendingReview = applications.filter(a => a.status === 'Pending').length;
+        const approved = applications.filter(a => a.status === 'Approved').length;
+        const rejected = applications.filter(a => a.status === 'Rejected').length;
+        const verified = applications.filter(a => a.status === 'Verified').length;
+
 
         res.render('admin_dashboard', {
             applications,
             appraisers,
-            colleges
+            colleges,
+            detailsMap,
+            totalApplications,
+            pendingReview,
+            approved,
+            rejected,
+            verified
         });
     } catch (error) {
         console.error('Error fetching admin dashboard data:', error);
         res.status(500).send("Server Error");
     }
 });
+
 
 router.get('/application/:id', ensureAdmin, async (req, res) => {
     try {
@@ -58,5 +82,19 @@ router.post('/assign-appraiser/:appId', ensureAdmin, async (req, res) => {
         res.redirect('/admin/dashboard');
     }
 });
+
+
+// POST - Update application status (Approve / Reject / Resubmission)
+router.post('/application/:id/status', ensureAdmin, async (req, res) => {
+    try {
+        const { status } = req.body; // Expected: "Approved", "Rejected", "Resubmission"
+        await Application.findByIdAndUpdate(req.params.id, { status });
+        res.json({ success: true, message: `Application ${status}` });
+    } catch (error) {
+        console.error("Error updating status:", error);
+        res.status(500).json({ success: false, error: "Failed to update status" });
+    }
+});
+
 
 module.exports = router;

@@ -1,0 +1,108 @@
+/* public/css/review.css */
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+.info-card {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+
+.info-card.full-width {
+    grid-column: 1 / -1; /* Makes the card span all columns */
+}
+
+.info-card h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e9ecef;
+    color: #003366;
+}
+
+.info-card p {
+    margin: 0 0 10px 0;
+    line-height: 1.6;
+}
+
+.info-card p strong {
+    color: #495057;
+}
+
+.status.not-verified {
+    background-color: #ffc107;
+    color: #333;
+}
+
+/* Verification Form Styling */
+.verification-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.verification-form .form-group {
+    margin-bottom: 20px;
+}
+
+.verification-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.verification-form input[type="date"],
+.verification-form select,
+.verification-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.priority-options label {
+    font-weight: normal;
+    margin-right: 15px;
+}
+
+.file-drop-area {
+    border: 2px dashed #007bff;
+    border-radius: 8px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f8f9fa;
+    position: relative;
+}
+
+.file-drop-area i {
+    font-size: 3rem;
+    color: #007bff;
+}
+
+.file-drop-area p {
+    margin: 10px 0 0 0;
+    color: #6c757d;
+}
+
+.file-drop-area .file-info {
+    font-size: 0.8rem;
+    color: #adb5bd;
+}
+
+.file-drop-area input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}

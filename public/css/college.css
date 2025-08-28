@@ -1,0 +1,121 @@
+/* ===============================
+   College Dashboard Overrides
+   Extends dashboard.css
+================================= */
+
+/* Section Titles */
+.dashboard-section h2 {
+  font-size: 1.6rem;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+}
+
+/* ===============================
+   Form Layouts
+================================= */
+.details-form .details-grid,
+.application-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.details-form .details-grid > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.application-form textarea,
+.application-form label,
+.dashboard-section input[type="file"] {
+  grid-column: 1 / -1; /* span full width */
+}
+
+/* ===============================
+   Form Elements
+================================= */
+.dashboard-section input[type="text"],
+.dashboard-section input[type="number"],
+.dashboard-section select,
+.dashboard-section textarea,
+.dashboard-section input[type="file"] {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-family: inherit;
+  background-color: #fff;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
+}
+
+.dashboard-section input:focus,
+.dashboard-section select:focus,
+.dashboard-section textarea:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2);
+}
+
+.dashboard-section label {
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #495057;
+}
+
+/* ===============================
+   Buttons
+================================= */
+.btn-primary {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 6px;
+  background-color: #003366;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+  width:180px
+}
+
+.btn-primary:hover {
+  background-color: #004488;
+}
+
+.view-btn {
+  padding: 6px 14px;
+  background-color: transparent;
+  color: #003366;
+  border: 1px solid #003366;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.view-btn:hover {
+  background-color: #003366;
+  color: #fff;
+}
+
+/* ===============================
+   College-specific Status Badges
+================================= */
+.status-badge {
+  padding: 5px 12px;
+  border-radius: 15px;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-approved    { background-color: #28a745; }
+.status-assigned    { background-color: #17a2b8; }
+.status-resubmitted { background-color: #ffc107; color: #212529; }
+.status-pending     { background-color: #6c757d; }

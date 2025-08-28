@@ -24,203 +24,176 @@
         </div>
     </header>
 
-    <div class="dashboard-container">
+    <div class="dashboard-wrapper">
 
-        
+        <!-- Sidebar -->
         <aside class="sidebar">
             <ul class="sidebar-nav">
-                <li>
-                    <a href="#my-profile" class="active">
-                        <i class="fas fa-user-circle"></i>
-                        <span class="sidebar-text">My Profile</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#appraisal-overview">
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span class="sidebar-text">Appraisal Overview</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#assigned-applications">
-                        <i class="fas fa-tasks"></i>
-                        <span class="sidebar-text">Assigned Applications</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/logout">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span class="sidebar-text">Logout</span>
-                    </a>
+                <li><a href="#my-profile" class="active"><i class="fas fa-user-circle"></i><span class="sidebar-text">My
+                            Profile</span></a></li>
+                <li><a href="#appraisal-overview"><i class="fas fa-tachometer-alt"></i><span
+                            class="sidebar-text">Appraisal Overview</span></a></li>
+                <li><a href="#assigned-applications"><i class="fas fa-tasks"></i><span class="sidebar-text">Assigned
+                            Applications</span></a></li>
+                <li><a href="/logout"><i class="fas fa-sign-out-alt"></i><span class="sidebar-text">Logout</span></a>
                 </li>
             </ul>
         </aside>
 
-        
-        <main class="dashboard-content">
+        <!-- Main Content -->
+        <main class="dashboard-main">
 
-          
-            <section id="my-profile" class="card dashboard-section">
-                <div class="card-header">
-                    <h2>My Profile</h2>
-                </div>
-                <div class="profile-details">
-                    <div class="profile-pic-container">
-                        <h3>
-                            <%= appraiser.name %>
-                        </h3>
-                        <p>
-                            <%= appraiser.email %>
-                        </p>
-                    </div>
-                    <form action="/appraiser/update-profile" method="POST" class="profile-form">
-                        <h4>Personal Information</h4>
-                        <div class="form-grid-two-col">
-                            <div class="form-group">
-                                <label for="fullName">Full Name</label>
-                                <input type="text" id="fullName" name="name" value="<%= appraiser.name %>">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" value="<%= appraiser.email %>">
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone Number</label>
-                                <input type="text" id="phone" name="contactNumber"
-                                    value="<%= details?.contactNumber || '' %>">
-                            </div>
-                            <div class="form-group">
-                                <label for="department">Department</label>
-                                <input type="text" id="department" name="department"
-                                    value="<%= details?.department || '' %>">
-                            </div>
-                            <div class="form-group">
-                                <label for="designation">Designation</label>
-                                <input type="text" id="designation" name="designation"
-                                    value="<%= details?.designation || '' %>">
-                            </div>
-                            <div class="form-group">
-                                <label for="experience">Years of Experience</label>
-                                <input type="number" id="experience" name="experience"
-                                    value="<%= details?.experience || 0 %>">
-                            </div>
+            <!-- Profile -->
+            <!-- <section id="my-profile" class="dashboard-section">
+        <h2>My Profile</h2>
+        <div class="profile-details">
+          <div class="profile-pic-container">
+            <h3><%= appraiser.name %></h3>
+            <p><%= appraiser.email %></p>
+          </div>
+
+          <form action="/appraiser/update-profile" method="POST" class="profile-form">
+            <h4>Personal Information</h4>
+            <div class="form-grid-two-col">
+              <div class="form-group"><label for="fullName">Full Name</label><input type="text" id="fullName" name="name" value="<%= appraiser.name %>"></div>
+              <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" value="<%= appraiser.email %>"></div>
+              <div class="form-group"><label for="phone">Phone</label><input type="text" id="phone" name="contactNumber" value="<%= details?.contactNumber || '' %>"></div>
+              <div class="form-group"><label for="department">Department</label><input type="text" id="department" name="department" value="<%= details?.department || '' %>"></div>
+              <div class="form-group"><label for="designation">Designation</label><input type="text" id="designation" name="designation" value="<%= details?.designation || '' %>"></div>
+              <div class="form-group"><label for="experience">Experience (Years)</label><input type="number" id="experience" name="experience" value="<%= details?.experience || 0 %>"></div>
+            </div>
+            <div class="form-group"><label for="bio">Bio</label><textarea id="bio" name="bio" rows="4"><%= details?.bio || '' %></textarea></div>
+
+            <h4>Password Change</h4>
+            <div class="form-grid-two-col">
+              <div class="form-group"><label for="newPassword">New Password</label><input type="password" id="newPassword" name="newPassword"></div>
+              <div class="form-group"><label for="confirmPassword">Confirm Password</label><input type="password" id="confirmPassword" name="confirmPassword"></div>
+            </div>
+            <button type="submit" class="btn-primary">Save Changes</button>
+          </form>
+        </div>
+      </section> -->
+            <section id="my-profile" class="dashboard-section">
+                <h2>My Profile</h2>
+                <form action="/appraiser/update-profile" method="POST" class="details-form">
+                    <div class="details-grid">
+                        <div>
+                            <label>Full Name</label>
+                            <p>
+                                <%= appraiser.name %>
+                            </p> <!-- readonly -->
                         </div>
-                        <div class="form-group">
+                        <div>
+                            <label>Email</label>
+                            <p>
+                                <%= appraiser.email %>
+                            </p> <!-- readonly -->
+                        </div>
+                        <div>
+                            <label for="contactNumber">Phone</label>
+                            <input type="text" id="contactNumber" name="contactNumber"
+                                value="<%= details?.contactNumber || '' %>">
+                        </div>
+                        <div>
+                            <label for="department">Department</label>
+                            <input type="text" id="department" name="department"
+                                value="<%= details?.department || '' %>">
+                        </div>
+                        <div>
+                            <label for="designation">Designation</label>
+                            <input type="text" id="designation" name="designation"
+                                value="<%= details?.designation || '' %>">
+                        </div>
+                        <div>
+                            <label for="experience">Experience (Years)</label>
+                            <input type="number" id="experience" name="experience"
+                                value="<%= details?.experience || '' %>">
+                        </div>
+                        <div style="grid-column: 1 / -1;">
                             <label for="bio">Bio</label>
-                            <textarea id="bio" name="bio" rows="4"><%= details?.bio || '' %></textarea>
+                            <textarea id="bio" name="bio" rows="3"><%= details?.bio || '' %></textarea>
                         </div>
-
-                        <h4>Password Change</h4>
-                        <div class="form-grid-two-col">
-                            <div class="form-group">
-                                <label for="newPassword">New Password</label>
-                                <input type="password" id="newPassword" name="newPassword">
-                            </div>
-                            <div class="form-group">
-                                <label for="confirmPassword">Confirm Password</label>
-                                <input type="password" id="confirmPassword" name="confirmPassword">
-                            </div>
-                        </div>
-                        <button type="submit" class="btn">Save Changes</button>
-                    </form>
-                </div>
+                    </div>
+                    <button type="submit" class="btn-primary">Update Details</button>
+                </form>
             </section>
 
-            
-            <section id="appraisal-overview" class="card dashboard-section" >
-                <div class="card-header">
-                    <h2>Appraisal Overview</h2>
-                    <div class="header-actions">
-                        <select>
-                            <option>This Month</option>
-                            <option>Last Month</option>
-                        </select>
-                        <button class="btn-secondary">Refresh</button>
-                    </div>
-                </div>
+            <!-- Overview -->
+            <section id="appraisal-overview" class="dashboard-section">
+                <h2>Appraisal Overview</h2>
                 <div class="kpi-container">
                     <div class="kpi-card">
+                        <h5 class="kpi-label">Total Assignments</h5>
                         <span class="kpi-value">
                             <%= totalAssignments %>
                         </span>
-                        <span class="kpi-label">Total Assignments</span>
                     </div>
-                    <div class="kpi-card">
-                        <span class="kpi-value">
+                    <div class="kpi-card"></span>
+                        <h5 class="kpi-label">Pending Review</h5><span class="kpi-value">
                             <%= pendingReview %>
-                        </span>
-                        <span class="kpi-label">Pending Review</span>
                     </div>
                     <div class="kpi-card">
+                        <h5 class="kpi-label">Verified</h5>
                         <span class="kpi-value">
-                            <%= approved %>
+                            <%= verified %>
                         </span>
-                        <span class="kpi-label">Approved</span>
                     </div>
-                    <div class="kpi-card">
-                        <span class="kpi-value">
+
+                    <!-- <div class="kpi-card">
+                        <h5 class="kpi-label">Rejected</h5><span class="kpi-value">
                             <%= rejected %>
                         </span>
-                        <span class="kpi-label">Rejected</span>
-                    </div>
+                    </div> -->
                 </div>
             </section>
 
-            
-            <section id="assigned-applications" class="card dashboard-section" >
-                <div class="card-header">
-                    <h2>Assigned Applications</h2>
-                    <div class="header-actions">
-                        <input type="search" placeholder="Search applications...">
-                        <button class="btn-secondary">Filter</button>
-                    </div>
+            <!-- Assigned Applications -->
+            <section id="assigned-applications" class="dashboard-section">
+                <h2>Assigned Applications</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>College</th>
+                                <th>Course</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Due Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if (applications && applications.length> 0) { %>
+                                <% applications.forEach((app, index)=> { %>
+                                    <tr>
+                                        <td>
+                                            <%= index + 1 %>
+                                        </td>
+                                        <td>
+                                            <%= app.collegeId.name %>
+                                        </td>
+                                        <td>
+                                            <%= app.courseTitle %>
+                                        </td>
+                                        <td>
+                                            <%= app.affiliationType %>
+                                        </td>
+                                        <td><span class="status <%= app.status.toLowerCase() %>">
+                                                <%= app.status %>
+                                            </span></td>
+                                        <td>N/A</td>
+                                        <td><a href="/appraiser/review/<%= app._id %>" class="btn-view">View</a></td>
+                                    </tr>
+                                    <% }) %>
+                                        <% } else { %>
+                                            <tr>
+                                                <td colspan="7">No applications assigned.</td>
+                                            </tr>
+                                            <% } %>
+                        </tbody>
+                    </table>
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>S.No</th>
-                            <th>College Name</th>
-                            <th>Course</th>
-                            <th>Type</th>
-                            <th>Status</th>
-                            <th>Due Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% if (applications && applications.length> 0) { %>
-                            <% applications.forEach((app, index)=> { %>
-                                <tr>
-                                    <td>
-                                        <%= index+1 %>
-                                    </td>
-                                    <td>
-                                        <%= app.collegeId.name %>
-                                    </td>
-                                    <td>
-                                        <%= app.courseTitle %>
-                                    </td>
-                                    <td>
-                                        <%= app.affiliationType %>
-                                    </td>
-                                    <td>
-                                        <span class="status <%= app.status.toLowerCase() %>">
-                                            <%= app.status %>
-                                        </span>
-                                    </td>
-                                    <td>N/A</td>
-                                    <td>
-                                        <a href="/appraiser/review/<%= app._id %>" class="btn-view">View</a>
-                                    </td>
-                                </tr>
-                                <% }) %>
-                                    <% } else { %>
-                                        <tr>
-                                            <td colspan="7">No applications assigned.</td>
-                                        </tr>
-                                        <% } %>
-                    </tbody>
-                </table>
             </section>
         </main>
     </div>
@@ -228,171 +201,6 @@
     <footer>
         <p>&copy; <%= new Date().getFullYear() %> University Affiliation Management Portal. All rights reserved.</p>
     </footer>
-
-
-
 </body>
 
 </html>
-
-
-
-
- <!-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Appraiser Dashboard</title>
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/dashboard.css" />
-    <link rel="stylesheet" href="/css/app.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-</head>
-<body class="dashboard-body">
-
-  
-   
-    <div class="dashboard-container">
-     
-       
-
-       
-        <main class="dashboard-content">
-
-            
-            <section class="card dashboard-section">
-                <div class="card-header">
-                    <h2>My Profile</h2>
-                    <button class="btn-secondary">Edit Profile</button>
-                </div>
-                <div class="profile-details">
-                    <form action="/appraiser/update-profile" method="POST" class="profile-form">
-                        <h4>Personal Information</h4>
-                        <div class="form-grid-two-col">
-                            <div class="form-group">
-                                <label for="fullName">Full Name</label>
-                                <input type="text" id="fullName" name="name" value="<%= appraiser.name %>">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" value="<%= appraiser.email %>">
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone Number</label>
-                                <input type="text" id="phone" name="contactNumber" value="<%= appraiser.contactNumber %>">
-                            </div>
-                            <div class="form-group">
-                                <label for="department">Department</label>
-                                <input type="text" id="department" name="department" value="<%= appraiser.department %>">
-                            </div>
-                            <div class="form-group">
-                                <label for="designation">Designation</label>
-                                <input type="text" id="designation" name="designation" value="<%= appraiser.designation %>">
-                            </div>
-                            <div class="form-group">
-                                <label for="experience">Years of Experience</label>
-                                <input type="number" id="experience" name="experience" value="<%= appraiser.experience || 0 %>">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="bio">Bio</label>
-                            <textarea id="bio" name="bio" rows="4"><%= appraiser.bio || '' %></textarea>
-                        </div>
-
-                        <h4>Password Change</h4>
-                        <div class="form-grid-two-col">
-                            <div class="form-group">
-                                <label for="newPassword">New Password</label>
-                                <input type="password" id="newPassword" name="newPassword">
-                            </div>
-                            <div class="form-group">
-                                <label for="confirmPassword">Confirm Password</label>
-                                <input type="password" id="confirmPassword" name="confirmPassword">
-                            </div>
-                        </div>
-                        <button type="submit" class="btn">Save Changes</button>
-                    </form>
-                </div>
-            </section>
-
-            
-            <section class="card dashboard-section">
-                <div class="card-header">
-                    <h2>Appraisal Overview</h2>
-                    <div class="header-actions">
-                        <select>
-                            <option>This Month</option>
-                            <option>Last Month</option>
-                        </select>
-                        <button class="btn-secondary">Refresh</button>
-                    </div>
-                </div>
-                <div class="kpi-container">
-                    <div class="kpi-card">
-                        <span class="kpi-value"><%= totalAssignments %></span>
-                        <span class="kpi-label">Total Assignments</span>
-                    </div>
-                    <div class="kpi-card">
-                        <span class="kpi-value"><%= pendingReview %></span>
-                        <span class="kpi-label">Pending Review</span>
-                    </div>
-                    <div class="kpi-card">
-                        <span class="kpi-value"><%= approved || 0 %></span>
-                        <span class="kpi-label">Approved</span>
-                    </div>
-                    <div class="kpi-card">
-                        <span class="kpi-value"><%= rejected || 0 %></span>
-                        <span class="kpi-label">Rejected</span>
-                    </div>
-                </div>
-            </section>
-
-            
-            <section class="card dashboard-section">
-                <div class="card-header">
-                    <h2>Assigned Applications</h2>
-                    <div class="header-actions">
-                        <input type="search" placeholder="Search applications...">
-                        <button class="btn-secondary">Filter</button>
-                    </div>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>S.No</th>
-                            <th>College Name</th>
-                            <th>Course</th>
-                            <th>Type</th>
-                            <th>Status</th>
-                            <th>Due Date</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% if (applications && applications.length > 0) { %>
-                            <% applications.forEach((app, index) => { %>
-                                <tr>
-                                    <td><%= index+1 %></td>
-                                    <td><%= app.collegeId.name %></td>
-                                    <td><%= app.courseTitle %></td>
-                                    <td><%= app.affiliationType %></td>
-                                    <td><span class="status <%= app.status.toLowerCase() %>"><%= app.status %></span></td>
-                                    <td>N/A</td>
-                                    <td>
-                                        <a href="/appraiser/review/<%= app._id %>" class="btn-view">View</a>
-                                    </td>
-                                </tr>
-                            <% }) %>
-                        <% } else { %>
-                            <tr>
-                                <td colspan="7">No applications assigned.</td>
-                            </tr>
-                        <% } %>
-                    </tbody>
-                </table>
-            </section>
-        </main>
-    </div>
-</body>
-</html> -->

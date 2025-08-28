@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title><%= role.charAt(0).toUpperCase() + role.slice(1) %> Login | Gradious</title>
+  <title>
+    <%= role.charAt(0).toUpperCase() + role.slice(1) %> Login | Gradious
+  </title>
   <link rel="stylesheet" href="/css/style.css" />
   <style>
     /* Additional styles specific to the login page */
@@ -14,29 +17,34 @@
       flex-grow: 1;
       padding: 20px;
     }
+
     .login-form {
       background: white;
       padding: 40px;
       border-radius: 8px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
       width: 100%;
       max-width: 400px;
       text-align: center;
     }
+
     .login-form h1 {
       margin-bottom: 25px;
       color: #003366;
     }
+
     .form-group {
       margin-bottom: 20px;
       text-align: left;
     }
+
     .form-group label {
       display: block;
       margin-bottom: 5px;
       font-weight: 600;
       color: #333;
     }
+
     .form-group input {
       width: 100%;
       padding: 10px;
@@ -44,6 +52,7 @@
       border-radius: 4px;
       font-size: 1rem;
     }
+
     .login-submit-btn {
       width: 100%;
       padding: 12px;
@@ -56,9 +65,11 @@
       cursor: pointer;
       transition: background-color 0.3s ease;
     }
+
     .login-submit-btn:hover {
       background-color: #00509e;
     }
+
     .error-message {
       background-color: #f8d7da;
       color: #721c24;
@@ -69,32 +80,54 @@
     }
   </style>
 </head>
+
 <body>
-  <%- include('partials/header') %>
+  <!-- <%- include('partials/header') %>/ -->
+
+  <header>
+    <div class="navbar">
+      <img src="/images/logo.png" alt="Gradious Logo" class="logo" />
+      <div class="university-name">Gradious Affiliation Portal</div>
+      <nav>
+        <a href="/">Home</a>
+        <a href="#features-section">Features</a>
+        <a href="#contact-section">Contact</a>
+        <a href="#login-roles-section" class="nav login-btn">Login</a>
+      </nav>
+    </div>
+  </header>
 
   <main class="main-content">
     <div class="login-container">
       <form class="login-form" action="/login" method="POST">
         <input type="hidden" name="role" value="<%= role %>">
-        <h1><%= role.charAt(0).toUpperCase() + role.slice(1) %> Login</h1>
+        <h1>
+          <%= role.charAt(0).toUpperCase() + role.slice(1) %> Login
+        </h1>
 
         <% if (error) { %>
-          <div class="error-message"><%= error %></div>
-        <% } %>
+          <div class="error-message">
+            <%= error %>
+          </div>
+          <% } %>
 
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" required />
-        </div>
-        <button type="submit" class="login-submit-btn">Login</button>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" id="password" name="password" required />
+            </div>
+            <button type="submit" class="login-submit-btn">Login</button>
       </form>
     </div>
   </main>
 
-  <%- include('partials/footer') %>
+  <!-- <%- include('partials/footer') %> -->
+  <footer>
+    <p>&copy; <%= new Date().getFullYear() %> University Affiliation Management Portal. All rights reserved.</p>
+  </footer>
 </body>
+
 </html>

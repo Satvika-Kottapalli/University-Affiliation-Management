@@ -38,12 +38,12 @@ router.get('/dashboard', isCollege, async (req, res) => {
       CollegeDetails.findOne({ collegeId: collegeId }), // <-- Find the associated college details
       Application.find({ collegeId: collegeId }).sort({ createdAt: -1 })
     ]);
-    
-    res.render('college-dashboard', { 
-      college, 
+
+    res.render('college-dashboard', {
+      college,
       // Pass an empty object if no details are found yet
-      collegeDetails: collegeDetails || {}, 
-      applications 
+      collegeDetails: collegeDetails || {},
+      applications
     });
   } catch (error) {
     console.error("Dashboard error:", error);
@@ -85,7 +85,8 @@ router.post('/application/submit', isCollege, (req, res) => {
         infrastructureDetails: req.body.infrastructureDetails,
         courseFee: req.body.courseFee,
         affiliationType: req.body.affiliationType,
-        supportingDocuments: req.files.map(file => file.path) // stores uploaded file paths
+        supportingDocuments: req.files.map(file => '/uploads/' + file.filename)
+        // stores uploaded file paths
       });
 
       await newApplication.save();

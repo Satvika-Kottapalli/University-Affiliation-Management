@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Review Application</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/dashboard.css" />
+    <link rel="stylesheet" href="/css/review.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+</head>
+
+<body class="dashboard-body">
+    <header>
+        <div class="navbar">
+            <img src="/images/logo.png" alt="Gradious Logo" class="logo" />
+            <div class="university-name">Gradious Affiliation Portal</div>
+            <nav>
+                <p>Welcome, <%= appraiser.name %>
+                </p>
+            </nav>
+        </div>
+    </header>
+
+    <div class="dashboard-wrapper">
+
+
+        <main class="dashboard-main">
+            <section class="dashboard-section">
+                <h2>Application Details</h2>
+
+                <!-- Application Info Cards -->
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3>College Information</h3>
+                        <p><strong>College Name:</strong>
+                            <%= application.collegeId.name %>
+                        </p>
+                        <p><strong>Contact Email:</strong>
+                            <%= application.collegeId.email %>
+                        </p>
+                    </div>
+                    <div class="info-card">
+                        <h3>Course Details</h3>
+                        <p><strong>Course Title:</strong>
+                            <%= application.courseTitle %>
+                        </p>
+                        <p><strong>Affiliation Type:</strong>
+                            <%= application.affiliationType %>
+                        </p>
+                        <p><strong>Status:</strong> <span class="status <%= application.status.toLowerCase() %>">
+                                <%= application.status %>
+                            </span></p>
+                    </div>
+                    <!-- <div class="info-card">
+                        <h3>Appraisal Information</h3>
+                        <p><strong>Decision Date:</strong> N/A</p>
+                        <p><strong>Appraisal Status:</strong> <span class="status not-verified">Not Verified</span></p>
+                    </div> -->
+                </div>
+
+                <!-- Additional Info Card -->
+                <div class="info-card full-width">
+                    <h3>Additional Information</h3>
+                    <p><strong>Infrastructure Details:</strong>
+                        <%= application.infrastructureDetails %>
+                    </p>
+                    <p><strong>Faculty Count:</strong>
+                        <%= application.facultyCount %>
+                    </p>
+                    <p><strong>Course Fee:</strong>
+                        <%= application.courseFee %>
+                    </p>
+                    <p><strong>Documents Uploaded:</strong>
+                        <% if (application.supportingDocuments && application.supportingDocuments.length> 0) { %>
+                            <% application.supportingDocuments.forEach(function(doc) { const
+                                fileName=doc.split('/').pop().split('-').slice(1).join('-'); // extract only filename %>
+                                <a href="<%= doc %>" target="_blank">
+                                    <%= fileName %>
+                                </a><br>
+                                <% }) %>
+                                    <% } else { %>
+                                        N/A
+                                        <% } %>
+                    </p>
+
+                </div>
+
+                <!-- Verification Form -->
+                <div class="info-card full-width">
+                    <h3>Submit Verification</h3>
+                    <form action="/appraiser/submit-verification/<%= application._id %>" method="POST"
+                        enctype="multipart/form-data" class="verification-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="siteVisitDate">Site Visit Date</label>
+                                <input type="date" id="siteVisitDate" name="siteVisitDate" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="recommendation">Recommendation</label>
+                                <select id="recommendation" name="recommendation" required>
+                                    <option value="">-- Select Recommendation --</option>
+                                    <option value="Approve">Approve</option>
+                                    <option value="Reject">Reject</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="verificationNotes">Verification Notes</label>
+                            <textarea id="verificationNotes" name="verificationNotes" rows="4" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Supporting Documents (Max 5 files)</label>
+                            <input type="file" name="supportingDocuments" multiple>
+                        </div>
+                        <button type="submit" class="btn-primary">Submit Verification</button>
+                        <button type="button" class="btn-secondary" onclick="history.back()">Cancel</button>
+                    </form>
+                </div>
+</body>
+
+</html>
